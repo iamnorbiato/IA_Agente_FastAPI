@@ -1,0 +1,18 @@
+# Web Framework & Servidor
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+
+# Banco de Dados & Vetores
+sqlalchemy==2.0.25
+psycopg2-binary==2.9.9
+pgvector==0.2.4
+
+# Processamento de Dados (Escalável para Big Data)
+pandas==2.2.0
+pyarrow==15.0.0
+numpy==1.26.3
+
+# IA e LLMs (Base para seus Agentes)
+openai==1.12.0
+langchain==0.1.7
+python-dotenv==1.0.1

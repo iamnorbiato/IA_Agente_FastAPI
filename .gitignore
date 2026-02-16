@@ -1,0 +1,13 @@
+# Dados e arquivos pesados
+*.parquet
+*.lst
+*.csv
+data/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Kubernetes/Config
+.DS_Store

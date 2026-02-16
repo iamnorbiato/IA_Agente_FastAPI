@@ -1,0 +1,17 @@
+# G:\Learning\IA\IA_Agente_FastAPI\_manifest\overlays\dev\kustomization.yaml
+resources:
+  - ../../base  # <--- APONTA PARA O DIRETÓRIO
+
+secretGenerator:
+  - name: db-credentials
+    envs:
+      - .env
+
+patches:
+  - target:
+      kind: Service
+      name: db-service
+    patch: |-
+      - op: replace
+        path: /spec/ports/0/nodePort
+        value: 30433
