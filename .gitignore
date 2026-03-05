@@ -11,3 +11,7 @@ __pycache__/
 
 # Kubernetes/Config
 .DS_Store
+
+# Secrets e Credenciais
+_manifests/base/db-credentials.yaml
+.env

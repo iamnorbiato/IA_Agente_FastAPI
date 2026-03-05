@@ -17,11 +17,9 @@ metadata:
   name: fastapi-agent
 spec:
   replicas: 1
-  # O Seletor diz ao Deployment quais Pods ele deve gerenciar
   selector:
     matchLabels:
       app: fastapi-agent
-  # O Template define como o Pod será criado
   template:
     metadata:
       labels:
@@ -35,36 +33,21 @@ spec:
             - containerPort: 8000
           env:
             - name: POSTGRES_DB
-              valueFrom:
-                secretKeyRef:
-                  name: db-credentials
-                  key: POSTGRES_DB
+              valueFrom: { secretKeyRef: { name: db-credentials, key: POSTGRES_DB } }
             - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: db-credentials
-                  key: POSTGRES_USER
+              valueFrom: { secretKeyRef: { name: db-credentials, key: POSTGRES_USER } }
             - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: db-credentials
-                  key: POSTGRES_PASSWORD
+              valueFrom: { secretKeyRef: { name: db-credentials, key: POSTGRES_PASSWORD } }
+            - name: EMBEDDING_MODEL_NAME
+              valueFrom: { configMapKeyRef: { name: ai-config, key: model_name } }
             - name: DATABASE_URL
               value: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@db-service:5432/$(POSTGRES_DB)"
+            - name: SQL_SEARCH_FILE
+              value: "/app/src/sql/vector_search.sql"
           volumeMounts:
             - name: app-source
               mountPath: /app/src
-            - name: data-source
-              mountPath: /app/data
       volumes:
         - name: app-source
           hostPath:
-            # Este formato pula a camada de tradução do Docker Desktop e vai direto ao mount do WSL
             path: /run/desktop/mnt/host/g/Learning/IA/IA_Agente_FastAPI/src
-        - name: data-source
-          hostPath:
-            path: /run/desktop/mnt/host/g/Learning/IA/IA_Agente_FastAPI/data
-
-      env:
-        - name: INGEST_FILES
-          value: "fastapi_vectorized.parquet,outro_arquivo.parquet" # Lista separada por vírgula

@@ -1,0 +1,9 @@
+#G:\Learning\IA\IA_Agente_FastAPI\_manifest\base\configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ai-config
+data:
+  model_name: "all-MiniLM-L6-v2"
+  vector_dim: "384"
+  ingest_list: "/app/data/ingestion/files.lst"
